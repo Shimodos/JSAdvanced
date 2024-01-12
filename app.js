@@ -1,35 +1,21 @@
 'use strict';
+const weatherMap = new Map();
+weatherMap.set('Valencia', '13').set('Madrid', '10');
 
-console.log('Hello World!');
+console.log(weatherMap.get('Valencia')); // 13
+console.log(weatherMap.get('not found')); // undefined
 
-const arrayUsers = ['Spain', 'London', 'London', 'USA', 'London', 'Spain', 'France', 'USA'];
-console.log(arrayUsers);
+console.log(weatherMap.has('Valencia')); // true
+console.log(weatherMap.has('not found')); // false
 
-const setFlights = new Set(arrayUsers); // Set структура данных, которая хранит уникальные значения
-console.log(setFlights);
+console.log(weatherMap.delete('Valencia')); // true
+weatherMap.clear(); // clears all the map
 
-console.log(setFlights.size); // size - свойство, которое показывает количество элементов в Set
+const arr = [1, 2, 3];
+weatherMap.set(1, 5).set(true, 'yes').set(false, 'no').set(arr, 'array').set({ a: 1 }, 'object');
 
-console.log(setFlights.has('London')); // has - метод, который проверяет наличие элемента в Set
+console.log(weatherMap);
+console.log(weatherMap.size); // 5
 
-setFlights.add('Italy'); // add - метод, который добавляет элемент в Set
-console.log(setFlights);
-
-setFlights.delete('Spain'); // delete - метод, который удаляет элемент из Set
-console.log(setFlights);
-
-// setFlights.clear(); // clear - метод, который очищает Set
-console.log(setFlights);
-
-// Перебор Set
-
-for (let item of setFlights) {
-  console.log(item);
-}
-
-const arrayFlights = [...setFlights]; // Преобразование Set в Array
-console.log(setFlights);
-
-const setObj = new Set([{ a: 1 }, { b: 2 }, { c: 3 }]);
-console.log(setObj);
-console.log(new Set({ a: 1 })); // Не работает, так как Set принимает только итерируемые значения
+console.log(weatherMap.get(arr));
+console.log(weatherMap.get({ a: 1 })); // undefined
