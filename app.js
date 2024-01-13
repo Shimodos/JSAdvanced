@@ -1,20 +1,16 @@
 'use strict';
 
-const weatherMap = new Map([
+let weatherMap = new Map([
   ['Valencia', 10],
   ['Madrid', 20],
   ['Barcelona', 30],
 ]);
 
-for (const [key, value] of weatherMap) {
-  console.log(key);
-  console.log(value);
-}
+// меняем значение ключа и значения местами
 
-// конвертируем Map в Array
+const weatherMapInvert = new Map([...weatherMap].map(([key, value]) => [value, key]));
 
-const weatherArray = [...weatherMap];
-console.log(weatherArray);
+console.log(weatherMapInvert);
 
-console.log([...weatherMap.keys()]);
-console.log([...weatherMap.values()]);
+weatherMap = new Map([...weatherMap].map((el) => el.reverse()));
+console.log(weatherMap);
