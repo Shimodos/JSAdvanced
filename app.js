@@ -1,20 +1,20 @@
 'use strict';
 
 const weatherMap = new Map([
-  ['rainy', 'Bring an umbrella'],
-  ['sunny', 'Dress lightly'],
-  ['cloudy', 'Go outside'],
-  ['snowing', 'Wear boots'],
+  ['Valencia', 10],
+  ['Madrid', 20],
+  ['Barcelona', 30],
 ]);
 
-console.log(weatherMap);
+for (const [key, value] of weatherMap) {
+  console.log(key);
+  console.log(value);
+}
 
-const weatherObj = {
-  Valencia: 10,
-  Madrid: 20,
-  Barcelona: 30,
-};
+// конвертируем Map в Array
 
-console.log(Object.entries(weatherObj));
-const weatherMap2 = new Map(Object.entries(weatherObj));
-console.log(weatherMap2);
+const weatherArray = [...weatherMap];
+console.log(weatherArray);
+
+console.log([...weatherMap.keys()]);
+console.log([...weatherMap.values()]);
