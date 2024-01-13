@@ -1,16 +1,31 @@
 'use strict';
 
-let weatherMap = new Map([
-  ['Valencia', 10],
-  ['Madrid', 20],
-  ['Barcelona', 30],
-]);
+let a = { a: 1 };
+let b = { b: 1 };
+const map = new WeakMap();
+map.set(a, 'one');
+map.set(b, 'two');
+console.log(map);
+console.log(map.get(a));
+console.log(map.has(a));
+console.log(map);
 
-// меняем значение ключа и значения местами
+a = null;
+setTimeout(() => {
+  console.log(map);
+}, 1000);
 
-const weatherMapInvert = new Map([...weatherMap].map(([key, value]) => [value, key]));
+let cache = new WeakMap();
 
-console.log(weatherMapInvert);
+function getValue(obj) {
+  if (!cache.has(obj)) {
+    let value = 1; // сложные вычисления для value
+    cache.set(obj, value);
+  }
+  return cache.get(obj);
+}
 
-weatherMap = new Map([...weatherMap].map((el) => el.reverse()));
-console.log(weatherMap);
+const res = getValue(b);
+console.log(res);
+const res2 = getValue(b);
+console.log(res2);
