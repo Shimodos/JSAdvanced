@@ -1,11 +1,36 @@
 'use strict';
 
-const bigNum1 = 350500000;
-const bigNum2 = 350_500_000;
+// max safe integer
+const max = 2 ** 53 - 1;
+console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
+console.log(Number.MIN_SAFE_INTEGER); // -9007199254740991
+console.log(max + 1);
+console.log(max + 2);
+console.log(max + 3);
+console.log(max + 5);
 
-const payment = 20_10;
+console.log(12121212432534645756756867987808909n);
+console.log(BigInt(12121212432534645756756867987808909));
+console.log(BigInt('12121212432534645756756867987808909'));
 
-console.log(Number('20_10')); // NaN
-console.log(Number('2010')); // 2010
-console.log(Number.parseInt('20_10'));
-console.log(Number.parseFloat('20_10'));
+console.log(10n - 4n); // 6n
+
+console.log(5n + BigInt(10)); // 15n
+
+console.log(5n * BigInt(2)); // 10n
+
+console.log(5n < 2n); // false
+
+console.log(5n > 2); // true
+
+console.log(5n == 5); // true
+
+console.log(5n === 5); // false
+
+console.log(5n == '5'); // true
+
+console.log(5n === '5'); // false
+
+console.log(10 / 3); // 3.3333333333333335
+
+console.log(10n / 3n); // 3n
