@@ -1,13 +1,31 @@
 'use strict';
 
-const options1 = { style: 'currency', currency: 'UAH' };
-const options2 = { style: 'currency', currency: 'USD' };
-const options3 = { style: 'decimal' };
-const options4 = { style: 'percent' };
-const options5 = { style: 'unit', unit: 'celsius' };
+// функция конвертации валют, принимает 3 параметра: сумма, валюта, валюта в которую конвертируем
 
-console.log(new Intl.NumberFormat('uk-UA', options1).format(23000)); // 23 000,00 ₴
-console.log(new Intl.NumberFormat('uk-UA', options3).format(23000)); // 23 000
-console.log(new Intl.NumberFormat('en-US', options2).format(23000)); // $23,000.00
-console.log(new Intl.NumberFormat('en-US', options4).format(0.1)); // 10%
-console.log(new Intl.NumberFormat('en-US', options5).format(25));
+function convertCurrency(amount, fromCurrency, toCurrency) {
+  const allCurrencies = [
+    { name: 'USD', rate: 1 },
+    { name: 'EUR', rate: 1.1 },
+    { name: 'UAH', rate: 1 / 30 },
+  ];
+
+  const initialCurrency = allCurrencies.find((currency) => currency.name === fromCurrency);
+  if (!initialCurrency) {
+    return null;
+  }
+
+  const convertCurrency = allCurrencies.find((currency) => currency.name === toCurrency);
+  if (!convertCurrency) {
+    return null;
+  }
+
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: convertCurrency.name,
+  }).format((amount * initialCurrency.rate) / convertCurrency.rate);
+}
+
+console.log(convertCurrency(100, 'USD', 'EUR'));
+console.log(convertCurrency(100, 'USD', 'UAH'));
+console.log(convertCurrency(100, 'EUR', 'UAH'));
+console.log(convertCurrency(100, 'EUR', 'USD'));
