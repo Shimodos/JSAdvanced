@@ -1,16 +1,22 @@
 'use strict';
 
-console.log(Number('10'));
-console.log(+'20');
-console.log(Number.parseInt('15', 10));
-console.log(Number.parseInt('15 sec', 10));
+console.log(Math.sqrt(36)); // 6
+console.log(Math.cbrt(27));
+console.log(16 ** (1 / 4)); // 2
 
-console.log(Number.parseFloat('15.5', 10));
-console.log(Number.parseFloat('15.5 sec', 10));
+console.log(Math.sign(-10)); // -1
+console.log(Math.sign(35)); // 1
+console.log(Math.abs(-100)); // 100
 
-console.log(Number.isNaN(Number('10der')));
-console.log(Number.isNaN(10 / 0));
-console.log(Number.isFinite(10 / 0));
+console.log(Math.exp(1)); // 2.718281828459045
 
-console.log(Number.isInteger(10));
-console.log(Number.isInteger(10.4));
+//min and max
+console.log(Math.min(1, 2, 3, 4, 5, 6, 7, 8, 9)); // 1
+console.log(Math.max(1, 2, 3, 4, 5, 6, 7, 8, 9)); // 9
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(Math.min(...arr)); // 1
+
+//random
+
+console.log(Math.trunc(Math.random() * 6) + 1); // 1 to 6
