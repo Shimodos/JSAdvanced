@@ -1,36 +1,13 @@
 'use strict';
 
-// max safe integer
-const max = 2 ** 53 - 1;
-console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
-console.log(Number.MIN_SAFE_INTEGER); // -9007199254740991
-console.log(max + 1);
-console.log(max + 2);
-console.log(max + 3);
-console.log(max + 5);
+const options1 = { style: 'currency', currency: 'UAH' };
+const options2 = { style: 'currency', currency: 'USD' };
+const options3 = { style: 'decimal' };
+const options4 = { style: 'percent' };
+const options5 = { style: 'unit', unit: 'celsius' };
 
-console.log(12121212432534645756756867987808909n);
-console.log(BigInt(12121212432534645756756867987808909));
-console.log(BigInt('12121212432534645756756867987808909'));
-
-console.log(10n - 4n); // 6n
-
-console.log(5n + BigInt(10)); // 15n
-
-console.log(5n * BigInt(2)); // 10n
-
-console.log(5n < 2n); // false
-
-console.log(5n > 2); // true
-
-console.log(5n == 5); // true
-
-console.log(5n === 5); // false
-
-console.log(5n == '5'); // true
-
-console.log(5n === '5'); // false
-
-console.log(10 / 3); // 3.3333333333333335
-
-console.log(10n / 3n); // 3n
+console.log(new Intl.NumberFormat('uk-UA', options1).format(23000)); // 23 000,00 ₴
+console.log(new Intl.NumberFormat('uk-UA', options3).format(23000)); // 23 000
+console.log(new Intl.NumberFormat('en-US', options2).format(23000)); // $23,000.00
+console.log(new Intl.NumberFormat('en-US', options4).format(0.1)); // 10%
+console.log(new Intl.NumberFormat('en-US', options5).format(25));
