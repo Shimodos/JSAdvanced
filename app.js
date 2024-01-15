@@ -1,32 +1,11 @@
 'use strict';
 
-console.log(Math.round(1.6)); // 2
+const bigNum1 = 350500000;
+const bigNum2 = 350_500_000;
 
-console.log(Math.ceil(1.1)); // 2
+const payment = 20_10;
 
-console.log(Math.floor(1.9)); // 1
-
-console.log(Math.trunc(1.75)); // 1
-
-console.log((1.6434).toFixed(2));
-console.log(Number((1.6434).toFixed(2)));
-
-//функция , которая принимает min и max и возвращает случайное число между ними  и округляет его
-
-function randomInteger(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-console.log(randomInteger(1, 20));
-
-// остаток от деления
-
-console.log(5 % 2); // 1
-console.log(4 % 2); // 0
-console.log(3 % 2); // 1
-console.log(2 % 2); // 0
-
-// проверка на четность
-const isEven = (n) => n % 2 === 0;
-console.log(isEven(5)); // false
-console.log(isEven(4)); // true
+console.log(Number('20_10')); // NaN
+console.log(Number('2010')); // 2010
+console.log(Number.parseInt('20_10'));
+console.log(Number.parseFloat('20_10'));
