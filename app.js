@@ -1,24 +1,12 @@
 'use strict';
 
-const now = new Date();
-console.log(now);
+const date1 = new Date(2024, 10, 15);
+const date2 = new Date(2025, 11, 15);
+console.log(Number(date1));
+console.log(Number(date2));
+console.log(date2 - date1);
 
-console.log(new Date('2020-05-01'));
-console.log(new Date('01/05/2020'));
-
-//Месяцы начинаются с 0
-console.log(new Date(2024, 10, 20)); // 20 ноября 2024 года
-console.log(new Date(2024, 10, 20 + 100)); // 29 февраля 2025 года
-console.log(new Date(0));
-console.log(Date.now());
-console.log(new Date(1 * 24 * 60 * 60 * 1000)); //
-
-console.log(now.getFullYear());
-console.log(now.getMonth());
-console.log(now.getDate());
-console.log(now.getDay());
-console.log(now.getHours());
-console.log(now.getMinutes());
-console.log(now.getTime());
-
-console.log(new Date(now.setFullYear(2030)));
+function getDateBetweenDates(date1, date2) {
+  return (date2 - date1) / (1000 * 60 * 60 * 24);
+}
+console.log(getDateBetweenDates(date1, date2));
