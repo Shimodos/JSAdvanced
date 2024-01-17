@@ -1,31 +1,24 @@
 'use strict';
 
-// функция конвертации валют, принимает 3 параметра: сумма, валюта, валюта в которую конвертируем
+const now = new Date();
+console.log(now);
 
-function convertCurrency(amount, fromCurrency, toCurrency) {
-  const allCurrencies = [
-    { name: 'USD', rate: 1 },
-    { name: 'EUR', rate: 1.1 },
-    { name: 'UAH', rate: 1 / 30 },
-  ];
+console.log(new Date('2020-05-01'));
+console.log(new Date('01/05/2020'));
 
-  const initialCurrency = allCurrencies.find((currency) => currency.name === fromCurrency);
-  if (!initialCurrency) {
-    return null;
-  }
+//Месяцы начинаются с 0
+console.log(new Date(2024, 10, 20)); // 20 ноября 2024 года
+console.log(new Date(2024, 10, 20 + 100)); // 29 февраля 2025 года
+console.log(new Date(0));
+console.log(Date.now());
+console.log(new Date(1 * 24 * 60 * 60 * 1000)); //
 
-  const convertCurrency = allCurrencies.find((currency) => currency.name === toCurrency);
-  if (!convertCurrency) {
-    return null;
-  }
+console.log(now.getFullYear());
+console.log(now.getMonth());
+console.log(now.getDate());
+console.log(now.getDay());
+console.log(now.getHours());
+console.log(now.getMinutes());
+console.log(now.getTime());
 
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: convertCurrency.name,
-  }).format((amount * initialCurrency.rate) / convertCurrency.rate);
-}
-
-console.log(convertCurrency(100, 'USD', 'EUR'));
-console.log(convertCurrency(100, 'USD', 'UAH'));
-console.log(convertCurrency(100, 'EUR', 'UAH'));
-console.log(convertCurrency(100, 'EUR', 'USD'));
+console.log(new Date(now.setFullYear(2030)));
