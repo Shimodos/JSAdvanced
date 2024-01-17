@@ -1,13 +1,35 @@
 'use strict';
 
-const first = new Date(2024, 10, 4);
-const second = new Date(2024, 10, 4);
+// создать функцию, котороая принимает пользователя и проверяет если у него день рождения сегодня, то поздравляет его с днем рождения
 
-console.log(first > second); // false
-console.log(first == second); // false
-console.log(first === second); // false
+const user = {
+  name: 'Alex',
+  birthday: '01/16/1990',
+};
 
-console.log(first.getTime() === second.getTime()); // true
-console.log(first.getTime() == second.getTime()); // true
-console.log(Number(first) === Number(second)); // true
-console.log(+first === +second); // true
+// const today = new Date();
+// const todayDate = today.toISOString().slice(0, 10);
+
+// function checkBirthday(user) {
+//   if (user.birthday === todayDate) {
+//     console.log(`Happy birthday, ${user.name}!`);
+//   } else {
+//     console.log(`Today is not ${user.name}'s birthday.`);
+//   }
+// }
+
+// checkBirthday(user);
+
+function checkBirthday(user) {
+  const birthdayDate = new Date(user.birthday);
+  const today = new Date();
+  if (birthdayDate.getMonth() !== today.getMonth()) {
+    console.log(`Today is not ${user.name}'s birthday.`);
+  }
+  if (birthdayDate.getDate() !== today.getDate()) {
+    console.log(`Today is not ${user.name}'s birthday.`);
+  }
+  console.log(`Happy birthday, ${user.name}!`);
+}
+
+checkBirthday(user);
