@@ -1,15 +1,22 @@
 'use strict';
 
-// set interval
+// таймер пици
 
-const interval = setInterval(() => {
-  console.log(new Date());
-}, 1000);
-console.log(interval);
+function timerPizza(ms) {
+  const end = new Date().getTime() + ms;
+  const interval = setInterval(() => {
+    console.log(
+      new Intl.DateTimeFormat('uk-UA', {
+        minute: 'numeric',
+        second: 'numeric',
+      }).format(end + 100 - new Date()),
+    );
+  }, 1000);
 
-const timer = setTimeout(() => {
-  clearInterval(interval);
-}, 5000);
+  setTimeout(() => {
+    clearInterval(interval);
+    console.log('Пицца готова!');
+  }, ms);
+}
 
-console.log(interval);
-console.log(timer);
+timerPizza(5000);
