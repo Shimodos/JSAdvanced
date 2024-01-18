@@ -1,10 +1,15 @@
 'use strict';
 
-// event loop
+// set interval
 
-const mark1 = performance.now();
-
-setTimeout(() => {
-  const mark2 = performance.now();
-  console.log(`setTimeout: ${mark2 - mark1}`);
+const interval = setInterval(() => {
+  console.log(new Date());
 }, 1000);
+console.log(interval);
+
+const timer = setTimeout(() => {
+  clearInterval(interval);
+}, 5000);
+
+console.log(interval);
+console.log(timer);
