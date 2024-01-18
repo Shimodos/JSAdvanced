@@ -1,25 +1,18 @@
 'use strict';
 
-const date = new Date();
+console.log(1);
 
-console.log(date);
-console.log(new Intl.DateTimeFormat('uk-UA').format(date));
+const messages = ['Hello world!', 'js'];
 
-const options1 = {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
-  weekday: 'long',
-};
-console.log(new Intl.DateTimeFormat('uk-UA', options1).format(date));
+const helloWorld = setTimeout(
+  (message1, message2) => {
+    console.log(2);
+    console.log(message1);
+    console.log(message2);
+  },
+  1000,
+  ...messages,
+);
+// clearTimeout(helloWorld);
 
-const options2 = {
-  year: '2-digit',
-  month: 'long',
-  day: 'numeric',
-  weekday: 'short',
-};
-console.log(new Intl.DateTimeFormat('en-US', options2).format(date));
-console.log(date.toISOString());
-
-console.log(navigator.language); // 'uk-UA'
+console.log(3);
