@@ -1,47 +1,17 @@
 'use strict';
 
-const product = { id: 1, name: 'Pen', count: 1, price: 100 };
-
-const Basket = function () {
-  this.products = [];
+const Book = function (title, author, isbn) {
+  this.title = title;
+  this.author = author;
+  this.isbn = isbn;
 };
 
-Basket.prototype.addProduct = function (product) {
-  if (this.products.find((product) => product.id === product.id)) {
-    return;
-  }
-  this.products.push(product);
-};
+Book.prototype.isRead = false;
 
-Basket.prototype.increaseProduct = function (id) {
-  const product = this.products.map((product) => {
-    if (product.id === id) {
-      product.count++;
-      return product;
-    }
-    return product;
-  });
-};
+const lordOfTheRings = new Book('The Lord of the Rings', 'J.R.R. Tolkien', '9780261103252');
 
-Basket.prototype.decreaseProduct = function (id) {
-  const product = this.products
-    .map((product) => {
-      if (product.id === id) {
-        product.count--;
-        return product;
-      }
-      return product;
-    })
-    .filter((product) => product.count > 0);
-};
+console.log(lordOfTheRings);
+console.log(lordOfTheRings.isRead);
 
-const basket = new Basket();
-
-basket.addProduct(product);
-basket.increaseProduct(1);
-basket.increaseProduct(1);
-basket.decreaseProduct(1);
-basket.decreaseProduct(1);
-basket.decreaseProduct(1);
-basket.decreaseProduct(1);
-console.log(basket);
+console.log(Book.prototype.__proto__);
+console.log(lordOfTheRings.hasOwnProperty('isbn'));
