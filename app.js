@@ -1,22 +1,19 @@
 'use strict';
 
-// таймер пици
+const User = function (email, pass) {
+  this.email = email;
+  this.pass = pass;
+};
 
-function timerPizza(ms) {
-  const end = new Date().getTime() + ms;
-  const interval = setInterval(() => {
-    console.log(
-      new Intl.DateTimeFormat('uk-UA', {
-        minute: 'numeric',
-        second: 'numeric',
-      }).format(end + 100 - new Date()),
-    );
-  }, 1000);
+const user1 = new User('a@a.ua', '123'); // user1 is an object
+console.log(user1);
+const user2 = new User('b@b.ua', '321'); // user2 is an object
+console.log(user2);
 
-  setTimeout(() => {
-    clearInterval(interval);
-    console.log('Пицца готова!');
-  }, ms);
-}
+console.log(user2 instanceof User); // true
 
-timerPizza(5000);
+// Создаеться пустой объект
+// Вызываеться функция User
+// this = пустой объект
+// Обьект связываеться с User.prototype
+// Функция возвращает объект
