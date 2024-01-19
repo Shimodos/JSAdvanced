@@ -1,19 +1,29 @@
 'use strict';
 
-const User = function (email, pass) {
-  this.email = email;
-  this.pass = pass;
+// Prototype
+
+const Book = function (title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
+  this.isRead = false;
 };
 
-const user1 = new User('a@a.ua', '123'); // user1 is an object
-console.log(user1);
-const user2 = new User('b@b.ua', '321'); // user2 is an object
-console.log(user2);
+Book.prototype.read = function () {
+  this.isRead = true;
+};
 
-console.log(user2 instanceof User); // true
+Book.prototype.cover = 'hardcover';
 
-// Создаеться пустой объект
-// Вызываеться функция User
-// this = пустой объект
-// Обьект связываеться с User.prototype
-// Функция возвращает объект
+const lordOfTheRings = new Book('Lord of the Rings', 'J.R.R. Tolkien', 1937);
+lordOfTheRings.read();
+
+console.log(lordOfTheRings);
+console.log(lordOfTheRings.cover);
+console.log(lordOfTheRings.hasOwnProperty('cover'));
+console.log(lordOfTheRings.hasOwnProperty('author'));
+
+console.log(lordOfTheRings.__proto__);
+console.log(lordOfTheRings.__proto__ === Book.prototype);
+console.log(Book.prototype.constructor === Book);
+console.log(Book.prototype.isPrototypeOf(lordOfTheRings));
