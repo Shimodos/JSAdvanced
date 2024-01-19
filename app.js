@@ -1,29 +1,47 @@
 'use strict';
 
-// Prototype
+const product = { id: 1, name: 'Pen', count: 1, price: 100 };
 
-const Book = function (title, author, year) {
-  this.title = title;
-  this.author = author;
-  this.year = year;
-  this.isRead = false;
+const Basket = function () {
+  this.products = [];
 };
 
-Book.prototype.read = function () {
-  this.isRead = true;
+Basket.prototype.addProduct = function (product) {
+  if (this.products.find((product) => product.id === product.id)) {
+    return;
+  }
+  this.products.push(product);
 };
 
-Book.prototype.cover = 'hardcover';
+Basket.prototype.increaseProduct = function (id) {
+  const product = this.products.map((product) => {
+    if (product.id === id) {
+      product.count++;
+      return product;
+    }
+    return product;
+  });
+};
 
-const lordOfTheRings = new Book('Lord of the Rings', 'J.R.R. Tolkien', 1937);
-lordOfTheRings.read();
+Basket.prototype.decreaseProduct = function (id) {
+  const product = this.products
+    .map((product) => {
+      if (product.id === id) {
+        product.count--;
+        return product;
+      }
+      return product;
+    })
+    .filter((product) => product.count > 0);
+};
 
-console.log(lordOfTheRings);
-console.log(lordOfTheRings.cover);
-console.log(lordOfTheRings.hasOwnProperty('cover'));
-console.log(lordOfTheRings.hasOwnProperty('author'));
+const basket = new Basket();
 
-console.log(lordOfTheRings.__proto__);
-console.log(lordOfTheRings.__proto__ === Book.prototype);
-console.log(Book.prototype.constructor === Book);
-console.log(Book.prototype.isPrototypeOf(lordOfTheRings));
+basket.addProduct(product);
+basket.increaseProduct(1);
+basket.increaseProduct(1);
+basket.decreaseProduct(1);
+basket.decreaseProduct(1);
+basket.decreaseProduct(1);
+basket.decreaseProduct(1);
+console.log(basket);
