@@ -6,12 +6,27 @@ const Book = function (title, author, isbn) {
   this.isbn = isbn;
 };
 
-Book.prototype.isRead = false;
+Book.prototype.read = function () {
+  this.isRead = true;
+};
 
-const lordOfTheRings = new Book('The Lord of the Rings', 'J.R.R. Tolkien', '9780261103252');
+class BookList {
+  isRead = false;
+
+  constructor(title, author, isbn) {
+    this.title = title;
+    this.author = author;
+    this.isbn = isbn;
+  }
+
+  read() {
+    this.isRead = true;
+  }
+}
+
+const lordOfTheRings = new BookList('Lord of the Rings', 'J.R.R. Tolkien', 12345);
 
 console.log(lordOfTheRings);
-console.log(lordOfTheRings.isRead);
-
-console.log(Book.prototype.__proto__);
-console.log(lordOfTheRings.hasOwnProperty('isbn'));
+console.log(lordOfTheRings instanceof BookList);
+lordOfTheRings.read();
+console.log(lordOfTheRings.__proto__);
