@@ -1,16 +1,24 @@
 'use strict'; // strict mode
 
-class Test {
-  static a = 1;
-  static hello() {
-    console.log('Hello');
+class Carr {
+  #vin;
+  speed;
+
+  #changeVin() {
+    console.log('VIN changed');
   }
 
+  test() {
+    // проверка доступа к приватным полям
+    this.#changeVin('1234');
+  }
+
+  static #field = 3;
+
   static {
-    let b = 5;
-    this.a = b;
-    console.log('Static block');
+    this.#field = 4;
   }
 }
-Test.hello(); // Hello
-console.log(Test.a); // 1
+
+const car = new Carr();
+car.test();
