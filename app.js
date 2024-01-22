@@ -1,32 +1,42 @@
-'use strict';
+'use strict'; // strict mode
 
-const Book = function (title, author, isbn) {
-  this.title = title;
-  this.author = author;
-  this.isbn = isbn;
+const task = {
+  title: 'My Title',
+  dueTo: new Date('2024/01/26'),
+
+  get isOverdue() {
+    return this.dueTo < Date.now();
+  },
+
+  set isOverdue(value) {
+    if (!value) {
+      this.dueTo = new Date();
+    }
+  },
 };
 
-Book.prototype.read = function () {
-  this.isRead = true;
-};
+console.log(task.isOverdue); // false
+task.isOverdue = false;
+console.log(task);
 
-class BookList {
-  isRead = false;
-
-  constructor(title, author, isbn) {
+class Task {
+  constructor(title, dueDate) {
     this.title = title;
-    this.author = author;
-    this.isbn = isbn;
+    this.dueDate = dueDate;
   }
 
-  read() {
-    this.isRead = true;
+  get isOverdue() {
+    return this.dueTo < Date.now();
+  } // получаем значение свойства
+
+  set dueDate(date) {
+    if (date < new Date()) {
+      return;
+    }
+    this._dueDate = date; // устанавливаем значение свойства
   }
 }
 
-const lordOfTheRings = new BookList('Lord of the Rings', 'J.R.R. Tolkien', 12345);
-
-console.log(lordOfTheRings);
-console.log(lordOfTheRings instanceof BookList);
-lordOfTheRings.read();
-console.log(lordOfTheRings.__proto__);
+const newTask = new Task('My Title', new Date('2024/01/26'));
+console.log((newTask.dueDate = new Date('2024/02/02')));
+console.log(newTask);
