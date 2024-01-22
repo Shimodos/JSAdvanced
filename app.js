@@ -1,24 +1,55 @@
 'use strict'; // strict mode
 
-class Carr {
-  #vin;
-  speed;
+/* реализовать класс пользователя, сосвойстыввами логин, пароль, почта
+ */
 
-  #changeVin() {
-    console.log('VIN changed');
+class User {
+  // private login;
+  // private password;
+  // private email;
+
+  #login;
+  #_password;
+  #email;
+
+  constructor(login, password, email) {
+    this.#login = login;
+    this.#password = password;
+    this.#email = email;
   }
 
-  test() {
-    // проверка доступа к приватным полям
-    this.#changeVin('1234');
+  set #password(pass) {
+    this.#_password = pass.split('').reverse().join(''); // reverse password
   }
 
-  static #field = 3;
+  get #password() {
+    return this.#_password.split('').reverse().join('');
+  }
 
-  static {
-    this.#field = 4;
+  get login() {
+    return this.#login;
+  }
+
+  get email() {
+    return this.#email;
+  }
+
+  checkPassword(pass) {
+    return this.#password === pass;
+  }
+
+  changePassword(oldPas, newPass) {
+    if (!this.checkPassword(oldPas)) {
+      return false;
+    }
+    this.#password = newPass;
+    return true;
   }
 }
 
-const car = new Carr();
-car.test();
+const user = new User('Alex', '12345', 'w@w.com');
+console.log(user);
+console.log(user.checkPassword('12345'));
+console.log(user.changePassword('12345', '54321'));
+console.log(user);
+console.log(user.email);
