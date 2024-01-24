@@ -1,23 +1,38 @@
 'use strict'; // strict mode
 
-const User = {
-  init(email, pass) {
-    this.email = email;
-    this.pass = pass;
-  },
-  log() {
-    console.log('User logged!');
-  },
-};
+/* Абстракиця vs Инкапсуляция
+  - Назначение
+  - Режисер
+  - Актеры
+  - Сценарий
+  - Съемочная группа
+*/
 
-const user = Object.create(User);
+class Movie {
+  #name;
+  #actors;
+  #director;
+  rating;
 
-User.log(); // User logged!
-console.log(user); // {}
-user.log(); // User logged!
-user.init('w@w.com', '123456');
-console.log(user);
-console.log(user.__proto__ == User); // true
+  constructor(name, actors, director) {
+    this.#name = name;
+    this.#actors = actors;
+    this.#director = director;
+  }
 
-const admin = Object.create(user);
-console.log(admin); // {}
+  get name() {
+    return this.#name;
+  }
+
+  get actors() {
+    return this.#actors;
+  }
+
+  get director() {
+    return this.#director;
+  }
+}
+
+const movie = new Movie('Titanic', ['Leonardo DiCaprio', 'Kate Winslet'], 'James Cameron');
+
+console.log(movie);
