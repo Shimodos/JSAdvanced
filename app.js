@@ -1,40 +1,5 @@
 'use strict'; // strict mode
 
-// const Book = function (title, author, year) {
-//   this.title = title;
-//   this.author = author;
-//   this.year = year;
-// };
-
-// Book.prototype.buy = function () {
-//   console.log(`You bought: ${this.title}`);
-// }; // Добавили метод buy в прототип Book
-
-// const AudioBook = function (title, author, lenMin) {
-//   Book.call(this, title, author);
-//   this.lenMin = lenMin;
-// }; // Создали конструктор AudioBook
-
-// AudioBook.prototype = Object.create(Book.prototype); // Отнаследовались от Book и создали новый прототип
-// AudioBook.prototype.constructor = AudioBook; // Указали конструктор
-
-// AudioBook.prototype.log = function () {
-//   console.log(` ${this.title} - ${this.lenMin} minutes`);
-// }; // Добавили метод log в прототип AudioBook
-
-// const book1 = new Book('Book One', 'John Doe', '2013');
-// const audioBook1 = new AudioBook('Audio Book One', 'John Doe', 20 * 60);
-
-// book1.buy();
-// audioBook1.log();
-// console.log(book1);
-// console.log(audioBook1);
-
-// console.log(audioBook1 instanceof AudioBook);
-// console.log(audioBook1 instanceof Book);
-
-// ES6 Classes
-
 class Book {
   constructor(title, author, year) {
     this.title = title;
@@ -42,24 +7,28 @@ class Book {
     this.year = year;
   } // Конструктор
 
-  buy() {
-    console.log(`You bought: ${this.title} - ${this.author} - ${this.year}`);
-  } // Метод
+  info() {
+    console.log(`${this.title} was written by ${this.author} in ${this.year}`);
+  }
 }
 
-class AudioBook extends Book {
-  constructor(title, author, lenMin) {
-    super(title, author);
-    this.lenMin = lenMin;
-  }
-
-  log() {
-    console.log(`You bought: ${this.title} - ${this.lenMin} minutes`);
-  }
-} // Конструктор AudioBook наследуется от Book
-
 const book1 = new Book('Book One', 'John Doe', '2013');
-const audioBook1 = new AudioBook('Audio Book One', 'John Doe', 20 * 60);
+const book2 = new Book('Book Two', 'Jane Doe', '2016');
 
-book1.buy();
-audioBook1.log();
+book1.info();
+book2.info();
+
+class EBook extends Book {
+  constructor(title, author, year, type) {
+    super(title, author, year);
+    this.type = type;
+  }
+
+  info() {
+    super.info(); // Вызов метода родителя
+    console.log(`This is an ${this.type} book and was published in ${this.year}`);
+  }
+}
+
+const ebook1 = new EBook('EBook One', 'John Doe', '2013', 'PDF');
+ebook1.info();
