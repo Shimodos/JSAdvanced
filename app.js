@@ -1,51 +1,50 @@
 'use strict'; // strict mode
 
-class Enemy {
-  health;
-  constructor(health) {
-    this.health = health;
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+arr
+  .map((a) => a * 2)
+  .filter((a) => a > 10)
+  .forEach((a) => console.log(a));
+// chaining methods
+console.log(arr);
+
+class Wallet {
+  balance = 0;
+
+  add(sum) {
+    this.balance += sum;
+    return this;
   }
 
-  recieveDamage(damage) {
-    this.health = this.health - damage;
-    console.log(this.health);
-  }
-}
-
-class Sword {
-  #damage;
-  constructor(damage) {
-    this.#damage = damage;
-  }
-
-  hit(enemy) {
-    enemy.recieveDamage(this.#damage);
-  }
-}
-
-class Orc extends Enemy {
-  constructor(health) {
-    super(health);
-  }
-
-  recieveDamage(damage) {
-    if (Math.random() > 0.5) {
-      this.health = this.health - damage;
-    }
-    console.log(this.health);
+  remove(sum) {
+    this.balance -= sum;
+    return this;
   }
 }
 
-class Troll extends Enemy {}
+const wallet1 = new Wallet();
+const res = wallet1.add(100).remove(56);
 
-// const enemy = new Enemy(100);
-const enemy = new Orc(100);
-const enemy2 = new Troll(200);
-const sword = new Sword(10);
+console.log(res);
 
-sword.hit(enemy);
-sword.hit(enemy);
-sword.hit(enemy);
-sword.hit(enemy2);
-sword.hit(enemy2);
-sword.hit(enemy2);
+class Builder {
+  house = {};
+
+  addRoof() {
+    this.house.roof = 'Roof';
+    return this;
+  }
+
+  addFloor() {
+    this.house.floor = 'Floor';
+    return this;
+  }
+
+  execute() {
+    return this.house;
+  }
+}
+
+const builder = new Builder().addFloor().addRoof().execute();
+
+console.log(builder);
