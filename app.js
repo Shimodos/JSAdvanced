@@ -1,34 +1,45 @@
 'use strict'; // strict mode
 
-class Book {
-  constructor(title, author, year) {
-    this.title = title;
-    this.author = author;
-    this.year = year;
-  } // Конструктор
+class Enemy {
+  health;
+  constructor(health) {
+    this.health = health;
+  }
 
-  info() {
-    console.log(`${this.title} was written by ${this.author} in ${this.year}`);
+  recieveDamage(damage) {
+    this.health = this.health - damage;
+    console.log(this.health);
   }
 }
 
-const book1 = new Book('Book One', 'John Doe', '2013');
-const book2 = new Book('Book Two', 'Jane Doe', '2016');
-
-book1.info();
-book2.info();
-
-class EBook extends Book {
-  constructor(title, author, year, type) {
-    super(title, author, year);
-    this.type = type;
+class Sword {
+  #damage;
+  constructor(damage) {
+    this.#damage = damage;
   }
 
-  info() {
-    super.info(); // Вызов метода родителя
-    console.log(`This is an ${this.type} book and was published in ${this.year}`);
+  hit(enemy) {
+    enemy.recieveDamage(this.#damage);
   }
 }
 
-const ebook1 = new EBook('EBook One', 'John Doe', '2013', 'PDF');
-ebook1.info();
+class Orc extends Enemy {
+  constructor(health) {
+    super(health);
+  }
+
+  recieveDamage(damage) {
+    if (Math.random() > 0.5) {
+      this.health = this.health - damage;
+    }
+    console.log(this.health);
+  }
+}
+
+// const enemy = new Enemy(100);
+const enemy = new Orc(100);
+const sword = new Sword(10);
+
+sword.hit(enemy);
+sword.hit(enemy);
+sword.hit(enemy);
