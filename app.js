@@ -36,10 +36,16 @@ class Orc extends Enemy {
   }
 }
 
+class Troll extends Enemy {}
+
 // const enemy = new Enemy(100);
 const enemy = new Orc(100);
+const enemy2 = new Troll(200);
 const sword = new Sword(10);
 
 sword.hit(enemy);
 sword.hit(enemy);
 sword.hit(enemy);
+sword.hit(enemy2);
+sword.hit(enemy2);
+sword.hit(enemy2);
