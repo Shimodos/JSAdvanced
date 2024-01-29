@@ -2,26 +2,26 @@
 
 // SOLID Principles
 
-// Barbara Liskov - Substitutability Principle
+// Interface Segregation Principle
 
-class User {
-  #role = 'user';
+class Weapon {
+  cost;
 
-  getRole() {
-    return this.#role;
+  dealDamage() {
+    // deal damage
   }
 }
 
-class Admin extends User {
-  #role = ['user', 'admin'];
-
-  getRole() {
-    return this.#role.join(', '); // .join method returns a string from an array
+class Riffle extends Weapon {
+  shoot() {
+    this.dealDamage();
+    // shoot
   }
 }
 
-function logRole(user) {
-  console.log('User role is: ' + user.getRole().toUpperCase());
+class Knife extends Weapon {
+  strike() {
+    this.dealDamage();
+    // strike
+  }
 }
-logRole(new User());
-logRole(new Admin());
