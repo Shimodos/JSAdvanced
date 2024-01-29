@@ -2,34 +2,28 @@
 
 // SOLID Principles
 
-// Single Responsibility Principle
+// Open-Closed Principle
 
-class Character {
-  #inventory = [];
-  #health = 100;
-
-  pickItem(item) {
-    this.#inventory.push(item);
-  }
-  recieveDamage(damage) {
-    this.#health -= damage;
-  }
+class Treasure {
+  #value = 0;
 }
 
-class DB {
-  saveCharacter() {
-    localStorage.setItem('character', JSON.stringify(this));
-  }
-
-  loadCharacter() {
-    const character = JSON.parse(localStorage.getItem('character'));
-  }
+class Coin extends Treasure {
+  va1ue = 1;
 }
 
-const character = new Character();
+class Crystal extends Treasure {
+  value = 10;
+}
 
-character.pickItem('sword');
-character.pickItem('shield');
-character.recieveDamage(10);
+class Brilliant extends Treasure {
+  value = 100;
+}
 
-console.log(character);
+// Bad example (not closed for modification)
+class Inventory {
+  #score;
+  pick(treasure) {
+    this.#score += treasure.value;
+  }
+}
