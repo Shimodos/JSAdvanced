@@ -2,28 +2,26 @@
 
 // SOLID Principles
 
-// Open-Closed Principle
+// Barbara Liskov - Substitutability Principle
 
-class Treasure {
-  #value = 0;
-}
+class User {
+  #role = 'user';
 
-class Coin extends Treasure {
-  va1ue = 1;
-}
-
-class Crystal extends Treasure {
-  value = 10;
-}
-
-class Brilliant extends Treasure {
-  value = 100;
-}
-
-// Bad example (not closed for modification)
-class Inventory {
-  #score;
-  pick(treasure) {
-    this.#score += treasure.value;
+  getRole() {
+    return this.#role;
   }
 }
+
+class Admin extends User {
+  #role = ['user', 'admin'];
+
+  getRole() {
+    return this.#role.join(', '); // .join method returns a string from an array
+  }
+}
+
+function logRole(user) {
+  console.log('User role is: ' + user.getRole().toUpperCase());
+}
+logRole(new User());
+logRole(new Admin());
