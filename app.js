@@ -2,26 +2,35 @@
 
 // SOLID Principles
 
-// Interface Segregation Principle
+// Dependency Inversion Principle
 
-class Weapon {
-  cost;
-
-  dealDamage() {
-    // deal damage
+class DB {
+  saveToDB(items) {
+    console.log(`save to DB: ${items}`);
+    // save to DB
   }
 }
 
-class Riffle extends Weapon {
-  shoot() {
-    this.dealDamage();
-    // shoot
+class MongoDB extends DB {
+  saveToDB(items) {
+    console.log(`save to MongoDB: ${items}`);
+    // save to MongoDB
+  }
+}
+class ToDoList {
+  items = [1, 2, 3];
+  db;
+  constructor(db) {
+    this.db = db;
+  }
+
+  saveToDB() {
+    this.db.saveToDB(this.item);
+    // save to DB
   }
 }
 
-class Knife extends Weapon {
-  strike() {
-    this.dealDamage();
-    // strike
-  }
-}
+const todoList1 = new ToDoList(new MongoDB());
+todoList1.saveToDB();
+const todoList2 = new ToDoList(new DB());
+todoList2.saveToDB();
