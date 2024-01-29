@@ -1,50 +1,35 @@
 'use strict'; // strict mode
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-arr
-  .map((a) => a * 2)
-  .filter((a) => a > 10)
-  .forEach((a) => console.log(a));
-// chaining methods
-console.log(arr);
+// SOLID Principles
 
-class Wallet {
-  balance = 0;
+// Single Responsibility Principle
 
-  add(sum) {
-    this.balance += sum;
-    return this;
+class Character {
+  #inventory = [];
+  #health = 100;
+
+  pickItem(item) {
+    this.#inventory.push(item);
   }
-
-  remove(sum) {
-    this.balance -= sum;
-    return this;
+  recieveDamage(damage) {
+    this.#health -= damage;
   }
 }
 
-const wallet1 = new Wallet();
-const res = wallet1.add(100).remove(56);
-
-console.log(res);
-
-class Builder {
-  house = {};
-
-  addRoof() {
-    this.house.roof = 'Roof';
-    return this;
+class DB {
+  saveCharacter() {
+    localStorage.setItem('character', JSON.stringify(this));
   }
 
-  addFloor() {
-    this.house.floor = 'Floor';
-    return this;
-  }
-
-  execute() {
-    return this.house;
+  loadCharacter() {
+    const character = JSON.parse(localStorage.getItem('character'));
   }
 }
 
-const builder = new Builder().addFloor().addRoof().execute();
+const character = new Character();
 
-console.log(builder);
+character.pickItem('sword');
+character.pickItem('shield');
+character.recieveDamage(10);
+
+console.log(character);
