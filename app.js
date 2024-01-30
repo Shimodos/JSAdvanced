@@ -5,23 +5,26 @@
 // AJAX is a technique for accessing web servers from a web page.
 
 //HTTP Requests
-function req(id) {
-  const request = new XMLHttpRequest();
-  request.open('GET', `https://dummyjson.com/carts/${id}`);
-  request.send();
 
-  request.addEventListener('load', function () {
-    const data = JSON.parse(this.responseText);
-    console.log(data);
-  });
-}
-req(1);
-req(2);
-req(3);
+// const request = new XMLHttpRequest();
+// request.open('GET', `https://dummyjson.com/products/`);
+// request.send();
 
-console.log('end');
+// request.addEventListener('load', function () {
+//   const data = JSON.parse(this.responseText);
+//   console.log(data);
+// });
 
-// Fetch API
-// fetch('https://dummyjson.com/carts/1')
-//   .then((res) => res.json())
-//   .then((json) => console.log(json));
+// высчитываем среднюю цену продуктов в массиве
+
+const request = new XMLHttpRequest();
+request.open('GET', `https://dummyjson.com/products/`);
+request.send();
+
+request.addEventListener('load', function () {
+  const { products } = JSON.parse(this.responseText);
+  console.log(products);
+  const prices = products.map((el) => el.price);
+  const average = prices.reduce((acc, el) => acc + el) / prices.length;
+  console.log(average);
+});
