@@ -1,36 +1,27 @@
 'use strict'; // strict mode
 
-// SOLID Principles
+// Asynchronous JavaScript and XML (AJAX)
 
-// Dependency Inversion Principle
+// AJAX is a technique for accessing web servers from a web page.
 
-class DB {
-  saveToDB(items) {
-    console.log(`save to DB: ${items}`);
-    // save to DB
-  }
+//HTTP Requests
+function req(id) {
+  const request = new XMLHttpRequest();
+  request.open('GET', `https://dummyjson.com/carts/${id}`);
+  request.send();
+
+  request.addEventListener('load', function () {
+    const data = JSON.parse(this.responseText);
+    console.log(data);
+  });
 }
+req(1);
+req(2);
+req(3);
 
-class MongoDB extends DB {
-  saveToDB(items) {
-    console.log(`save to MongoDB: ${items}`);
-    // save to MongoDB
-  }
-}
-class ToDoList {
-  items = [1, 2, 3];
-  db;
-  constructor(db) {
-    this.db = db;
-  }
+console.log('end');
 
-  saveToDB() {
-    this.db.saveToDB(this.item);
-    // save to DB
-  }
-}
-
-const todoList1 = new ToDoList(new MongoDB());
-todoList1.saveToDB();
-const todoList2 = new ToDoList(new DB());
-todoList2.saveToDB();
+// Fetch API
+// fetch('https://dummyjson.com/carts/1')
+//   .then((res) => res.json())
+//   .then((json) => console.log(json));
