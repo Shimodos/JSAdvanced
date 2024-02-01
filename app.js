@@ -3,25 +3,29 @@
 // Promise is a JavaScript object for asynchronous operation.
 // Chain
 
-fetch('https://dummyjson.com/products/categories')
-  .then((res) => res.json())
-  .then((categories) => {
-    console.log(categories);
-    return fetch('https://dummyjson.com/products/categories/' + categories[1].id);
-  });
+fetch('https://dummyjson.com/products')
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error(`Is error ${res.status}`);
+    }
 
-function createSelect(arr) {
-  const el = document.querySelector('.filter');
-  el.innerHTML = `<select>
-  ${arr.map((item) => `<option value=${el}>${item}</option>`)}
-  </select>`;
-}
+    return res.json();
+  })
+  .then(({ products }) => {
+    console.log(products);
+    return fetch('https://dummyjson.com/products/' + products[0].id);
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error(`Is error ${res.status}`);
+    }
+    res.json();
+  })
+  .then((data) => console.log(data))
 
-function getCategories() {
-  fetch('https://dummyjson.com/products/categories')
-    .then((res) => res.json())
-    .then((data) => createSelect(data))
-    .catch((err) => console.log(`Error: ${err}`));
-}
+  .catch((error) => {
+    const el = document.querySelector('.filter');
+    el.innerHTML = error.message;
+  }) // error handling
 
-getCategories();
+  .finally(() => console.log('finally')); // finally
