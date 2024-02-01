@@ -3,7 +3,7 @@
 // Promise is a JavaScript object for asynchronous operation.
 // Chain
 
-fetch('https://dummyjson.com/products')
+fetch('https://dummyjson.com/products1')
   .then(
     (res) => res.json(),
     // (error) => console.log('error1'),
@@ -17,4 +17,6 @@ fetch('https://dummyjson.com/products')
   )
   .then((res) => res.json())
   .then((product) => console.log(product))
-  .catch((error) => console.log(error)); // error handling
+
+  .catch((error) => console.log(error)) // error handling
+  .finally(() => console.log('finally')); // finally
