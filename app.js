@@ -1,31 +1,25 @@
 'use strict'; // strict mode
 
 // Promise is a JavaScript object for asynchronous operation.
-// Chain
 
-fetch('https://dummyjson.com/products')
-  .then((res) => {
+function getData(url, errorMessage, method = 'GET') {
+  return fetch(url).then((res) => {
     if (!res.ok) {
-      throw new Error(`Is error ${res.status}`);
+      throw new Error(`${errorMessage} ${res.status}`);
     }
-
     return res.json();
-  })
+  });
+}
+
+getData('https://dummyjson.com/products', 'Can nits get products')
   .then(({ products }) => {
     console.log(products);
-    return fetch('https://dummyjson.com/products/' + products[0].id);
-  })
-  .then((res) => {
-    if (!res.ok) {
-      throw new Error(`Is error ${res.status}`);
-    }
-    res.json();
+    return getData('https://dummyjson.com/products/' + products[0].id, 'Can nits get product');
   })
   .then((data) => console.log(data))
-
-  .catch((error) => {
+  .catch((errorMessage) => {
     const el = document.querySelector('.filter');
-    el.innerHTML = error.message;
+    el.innerHTML = errorMessage;
   }) // error handling
 
   .finally(() => console.log('finally')); // finally
