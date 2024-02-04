@@ -2,31 +2,17 @@
 
 // Event Loop
 
+
+// Microtask Queue
+
 const prom = new Promise((resolve, reject) => {
-  if ( new Date() < new Date('2024-06-20') ) {
-    reject(new Error('Promise rejected'));
+  console.log('Constructor')
+  setTimeout(() => {
+    resolve('Timer 1 resolved');
   }
-  resolve('Promise resolved');
+  , 1000);
 });
+prom.then(data => console.log(data)); // Microtask 1
+Promise.resolve('Instant').then(data => console.log(data)); // Microtask 1
 
-prom
-    .then((res) => {console.log(res)})
-    .catch((err) => {console.log(err)})
-
-function timeout(ms) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, ms * 1000)
-  });
-}
-
-timeout(1)
-    .then(() => {
-      console.log('1 second passed')
-      return timeout(1);
-    })
-    .then(() => {
-      console.log('2 seconds passed')
-      return timeout(1);
-    })
+Promise.reject( new Error('Error')).catch(err => console.log(err)); // Microtask 1
