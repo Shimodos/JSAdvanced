@@ -2,17 +2,33 @@
 
 // Event Loop
 
+function myFetch(url) {
+  return new Promise ((resolve, reject) => {
+    const request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.send();
 
-// Microtask Queue
+    request.addEventListener('load', function() {
+      if (this.status !== 200) {
+        return reject(new Error(this.status));
+      }
+      resolve(this.responseText);
+    });
 
-const prom = new Promise((resolve, reject) => {
-  console.log('Constructor')
-  setTimeout(() => {
-    resolve('Timer 1 resolved');
-  }
-  , 1000);
-});
-prom.then(data => console.log(data)); // Microtask 1
-Promise.resolve('Instant').then(data => console.log(data)); // Microtask 1
+    request.addEventListener('error', () => {
+      reject(new Error(this.status));
+    });
 
-Promise.reject( new Error('Error')).catch(err => console.log(err)); // Microtask 1
+    request.addEventListener('timout', () => {
+      reject(new Error('timout'));
+    });
+  });
+}
+
+myFetch('https://dummyjson.com/productss')
+  .then(response => {
+    console.log(response);
+  })
+  .catch(error => {
+    console.log(error);
+  });
