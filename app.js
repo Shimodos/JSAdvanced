@@ -1,25 +1,18 @@
 'use strict'; // strict mode
 
-// Promise is a JavaScript object for asynchronous operation.
+// Event Loop
 
-function getData(url, errorMessage, method = 'GET') {
-  return fetch(url).then((res) => {
-    if (!res.ok) {
-      throw new Error(`${errorMessage} ${res.status}`);
-    }
-    return res.json();
-  });
-}
+console.log(1)
 
-getData('https://dummyjson.com/products', 'Can nits get products')
-  .then(({ products }) => {
-    console.log(products);
-    return getData('https://dummyjson.com/products/' + products[0].id, 'Can nits get product');
-  })
-  .then((data) => console.log(data))
-  .catch((errorMessage) => {
-    const el = document.querySelector('.filter');
-    el.innerHTML = errorMessage;
-  }) // error handling
+setTimeout(() => {
+  console.log(2)
+}, 0)
+Promise.resolve(3).then((res) => {
+  console.log(res)
+})
 
-  .finally(() => console.log('finally')); // finally
+console.log(4)
+
+// for (let i = 0; i < 1000000000; i++) {
+//   // do nothing
+// }
