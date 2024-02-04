@@ -1,34 +1,29 @@
 'use strict'; // strict mode
 
-// Event Loop
+// Modern async/await syntax JavaScript
 
-function myFetch(url) {
-  return new Promise ((resolve, reject) => {
-    const request = new XMLHttpRequest();
-    request.open('GET', url);
-    request.send();
-
-    request.addEventListener('load', function() {
-      if (this.status !== 200) {
-        return reject(new Error(this.status));
-      }
-      resolve(this.responseText);
-    });
-
-    request.addEventListener('error', () => {
-      reject(new Error(this.status));
-    });
-
-    request.addEventListener('timout', () => {
-      reject(new Error('timout'));
-    });
-  });
+function getProduct () {
+  fetch('https://dummyjson.com/products/')
+      .then(response => response.json())
+      .then(data => console.log(data))
 }
 
-myFetch('https://dummyjson.com/productss')
-  .then(response => {
-    console.log(response);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+getProduct()
+console.log('End')
+
+// Async/Await syntax
+
+ async function getProduct1 () {
+  let productsResponse = await fetch('https://dummyjson.com/products/')
+  let { products } = await productsResponse.json()
+  console.log(products)
+
+   const cartsResponse = await fetch('https://dummyjson.com/carts/')
+   const carts = await cartsResponse.json()
+   console.log(carts)
+
+   let productResponse = await fetch('https://dummyjson.com/products/' +products[0].id)
+   let product = await productResponse.json()
+   console.log(product)
+}
+getProduct1().then(() => console.log('End1'))
