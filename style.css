@@ -1,0 +1,29 @@
+.button {
+  background-color: #4CAF50;
+  /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 10px;
+
+
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.wrapper>* {
+  flex: 1;
+  padding: 10px;
+  background: #bdbdbd;
+  border-radius: 10px;
+}
