@@ -1,18 +1,27 @@
 'use strict'; // strict mode
 
-class ProductRepository {
-  async getProducts() {
-    const response = await fetch('https://dummyjson.com/products');
-    console.log(await response.json());
-  }
-}
-
-const repo = new ProductRepository();
-repo.getProducts();
+// Arrow function
 
 const asyncArrowFunction = async () => {
-  const response = await fetch('https://dummyjson.com/products');
-  console.log(await response.json());
+  try {
+    const response = await fetch('https://dummyjson.com/products');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
-asyncArrowFunction();
+// console.log('1');
+// asyncArrowFunction()
+//   .then((data) => console.log(data))
+//   .catch((error) => console.log(error))
+//   .finally(() => console.log('2'));
+
+(async () => {
+  console.log('1');
+  const res = await asyncArrowFunction();
+  console.log(res);
+  console.log('2');
+})();
