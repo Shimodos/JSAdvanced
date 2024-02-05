@@ -1,27 +1,27 @@
 'use strict'; // strict mode
 
-// Arrow function
+async function getAllProducts() {
+  const response = await fetch('http://dummyjson.com/products');
+  return response.json();
+}
 
-const asyncArrowFunction = async () => {
-  try {
-    const response = await fetch('https://dummyjson.com/products');
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
+async function getProduct(id) {
+  const response = await fetch('http://dummyjson.com/products/' + id);
+  return response.json();
+}
 
-// console.log('1');
-// asyncArrowFunction()
-//   .then((data) => console.log(data))
-//   .catch((error) => console.log(error))
-//   .finally(() => console.log('2'));
-
-(async () => {
-  console.log('1');
-  const res = await asyncArrowFunction();
+async function main() {
+  const { products } = await getAllProducts();
+  const res = await Promise.all(
+    products.map(async (product) => {
+      return await getProduct(product.id);
+    }),
+  );
   console.log(res);
-  console.log('2');
-})();
+  // for (const product of products) {
+  //   const res = await getProduct(product.id);
+  //   console.log(res);
+  // }
+}
+
+main();
