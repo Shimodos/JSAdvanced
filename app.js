@@ -1,46 +1,33 @@
 'use strict'; // strict mode
 
-// Modern async/await syntax JavaScript
-
-function getProduct() {
-  fetch('https://dummyjson.com/products/')
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+function getMyCoordinates() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        resolve({ latitude: coords.latitude, longitude: coords.longitude });
+      },
+      (error) => {
+        reject(error);
+      },
+    );
+  });
 }
 
-getProduct();
-console.log('End');
-
-// Async/Await syntax
-
-async function getProduct1() {
+async function getMyCity() {
   try {
-    const productsResponse = await fetch('https://dummyjson.com/products/');
-    if (!productsResponse.ok) {
-      throw new Error(productsResponse.status);
+    const { latitude, longitude } = await getMyCoordinates();
+    const response = await fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
+    );
+    if (!response.ok) {
+      throw new Error('Failed to get city');
     }
-    const { products } = await productsResponse.json();
-    console.log(products);
-
-    const cartsResponse = await fetch('https://dummyjson.com/carts/');
-    const carts = await cartsResponse.json();
-    console.log(carts);
-
-    let productResponse = await fetch('https://dummyjson.com/products/' + products[0].id);
-    let product = await productResponse.json();
-    console.log(product);
+    console.log(latitude, longitude);
+    const data = await response.json();
+    console.log(data.city);
   } catch (error) {
-    console.log(error);
-  } finally {
-    console.log('Finally');
+    console.error(error);
   }
 }
 
-try {
-  const a = 5;
-  a = 6;
-} catch (error) {
-  console.log(error);
-}
-
-getProduct1().then(() => console.log('End1'));
+getMyCity();
