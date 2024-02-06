@@ -1,30 +1,20 @@
 'use strict'; // strict mode
 
-console.log(document.head);
-console.log(document.body);
+function generate(event) {
+  // выводим в консоль getBoundingClientRect
+  console.log(event.target.getBoundingClientRect());
 
-const el = document.querySelector('.wrapper');
-const el2 = document.querySelectorAll('meta');
-console.log(el);
-console.log(el2);
-const el3 = document.getElementsByClassName('wrapper');
-const el4 = document.getElementsByTagName('meta');
-console.log(el3);
-console.log(el4);
+  console.log(`X offset: ${window.scrollX}`);
+  console.log(`Y offset: ${window.scrollY}`);
+  console.log(`clientWidth: ${document.documentElement.clientWidth}`);
+  console.log(`clientHeight: ${document.documentElement.clientHeight}`);
 
-el.classList.add('new-class');
+  const el = document.querySelector('.down');
+  const rect = el.getBoundingClientRect();
 
-const button = document.createElement('button');
-button.innerHTML = 'append';
-
-const button2 = document.createElement('button');
-button2.innerHTML = 'prepend';
-
-el.append(button);
-el.prepend(button2);
-// el.after(button2);
-
-function generate() {
-  // console.log(el.parentNode.removeChild(el)); // remove element old way
-  el.remove();
+  window.scrollBy({
+    left: window.scrollX + rect.left,
+    top: window.scrollY + rect.top,
+    behavior: 'smooth',
+  });
 }
