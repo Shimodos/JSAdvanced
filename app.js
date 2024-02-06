@@ -1,24 +1,30 @@
 'use strict'; // strict mode
 
-const wrapper = document.querySelector('.wrapper');
+console.log(document.head);
+console.log(document.body);
 
-async function getActivity() {
-  const response = await fetch('http://www.boredapi.com/api/activity/');
-  const data = await response.json();
-  return data;
-}
+const el = document.querySelector('.wrapper');
+const el2 = document.querySelectorAll('meta');
+console.log(el);
+console.log(el2);
+const el3 = document.getElementsByClassName('wrapper');
+const el4 = document.getElementsByTagName('meta');
+console.log(el3);
+console.log(el4);
 
-async function generate() {
-  try {
-    wrapper.innerHTML = '';
-    const data = await Promise.all([getActivity(), getActivity(), getActivity()]);
-    console.log(data);
-    for (const el of data) {
-      const element = document.createElement('div');
-      element.innerHTML = `<h2>${el.activity}</h2>`;
-      wrapper.appendChild(element);
-    }
-  } catch (error) {
-    console.error(error);
-  }
+el.classList.add('new-class');
+
+const button = document.createElement('button');
+button.innerHTML = 'append';
+
+const button2 = document.createElement('button');
+button2.innerHTML = 'prepend';
+
+el.append(button);
+el.prepend(button2);
+// el.after(button2);
+
+function generate() {
+  // console.log(el.parentNode.removeChild(el)); // remove element old way
+  el.remove();
 }
