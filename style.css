@@ -17,6 +17,8 @@
 
 .wrapper {
   display: flex;
+  flex-direction: column;
+  color: aliceblue;
   justify-content: center;
   text-align: center;
   gap: 10px;

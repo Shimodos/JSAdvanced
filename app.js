@@ -1,31 +1,18 @@
 'use strict'; // strict mode
 
-const button = document.querySelector('.button');
-const inner = document.querySelector('.inner');
 const wrapper = document.querySelector('.wrapper');
 
-button.addEventListener('click', function (event) {
-  console.log('Button clicked');
-  console.log(event.target);
-  console.log(event.currentTarget);
-  this.style.backgroundColor = 'red';
-});
+for (let i = 0; i < 10; i++) {
+  const div = document.createElement('div');
+  div.innerHTML = `User ID: ${i}`;
+  div.setAttribute('data-id', i);
+  // div.addEventListener('click', () => {
+  //   console.log(`'Delete user ID: , ${i}`);
+  // });
+  wrapper.appendChild(div);
+}
 
-inner.addEventListener('click', function (event) {
-  console.log('Inner clicked');
-  console.log(event.target);
-  console.log(event.currentTarget);
-  this.style.backgroundColor = 'green';
-  // event.stopPropagation(); // stop bubbling
+wrapper.addEventListener('click', (e) => {
+  const i = e.target.getAttribute('data-id');
+  console.log(`Delete user ID: ${i}`);
 });
-
-wrapper.addEventListener(
-  'click',
-  function (event) {
-    console.log('Wrapper clicked');
-    console.log(event.target);
-    console.log(event.currentTarget);
-    this.style.backgroundColor = 'blue';
-  },
-  true,
-); // capture phase
