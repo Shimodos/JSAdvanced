@@ -1,20 +1,13 @@
 'use strict'; // strict mode
 
-function generate(event) {
-  // выводим в консоль getBoundingClientRect
-  console.log(event.target.getBoundingClientRect());
+const button = document.querySelector('.button');
 
-  console.log(`X offset: ${window.scrollX}`);
-  console.log(`Y offset: ${window.scrollY}`);
-  console.log(`clientWidth: ${document.documentElement.clientWidth}`);
-  console.log(`clientHeight: ${document.documentElement.clientHeight}`);
+const evenHandler = function (event) {
+  console.log('Button clicked');
+};
 
-  const el = document.querySelector('.down');
-  const rect = el.getBoundingClientRect();
-
-  window.scrollBy({
-    left: window.scrollX + rect.left,
-    top: window.scrollY + rect.top,
-    behavior: 'smooth',
-  });
-}
+button.addEventListener('click', evenHandler);
+button.addEventListener('click', (event) => {
+  console.log('2nd event listener');
+  button.removeEventListener('click', evenHandler);
+});
