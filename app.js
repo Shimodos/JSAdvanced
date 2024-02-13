@@ -1,28 +1,19 @@
 'use strict'; // strict mode
 
-const wrapper = document.querySelector('.wrapper');
-console.log(wrapper);
+// загрузка скрипта после загрузки DOM
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('DOM fully loaded and parsed');
+  console.log(e);
+});
 
-const inner = document.querySelector('.inner');
-const button = document.querySelector('.button');
-console.log(inner);
+// загрузка скрипта после загрузки всех ресурсов
+window.addEventListener('load', function (e) {
+  console.log('load');
+  console.log(e);
+});
 
-// Перелючение вниз по дереву
-console.log(inner.childNodes);
-console.log([...inner.children][0].classList);
-
-// Перелючение вверх по дереву
-console.log(inner.parentElement);
-console.log(inner.parentNode);
-
-// Поиск ближайшего родителя
-console.log(button.closest('.wrapper'));
-
-// Перелючение влево и вправо по дереву
-console.log(button.previousElementSibling);
-console.log(button.previousSibling);
-console.log(button.nextElementSibling);
-console.log(button.nextSibling);
-
-// Перелючение вверх и вниз по дереву
-console.log(button.parentElement.children);
+// // загрузка скрипта перед выгрузкой страницы
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   e.returnValue = '';
+// });
