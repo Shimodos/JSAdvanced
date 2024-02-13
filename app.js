@@ -1,19 +1,19 @@
 'use strict'; // strict mode
 
-// загрузка скрипта после загрузки DOM
-document.addEventListener('DOMContentLoaded', function (e) {
-  console.log('DOM fully loaded and parsed');
-  console.log(e);
-});
+const wrapper = document.querySelector('.wrapper');
+for (let i = 0; i < 100; i++) {
+  const div = document.createElement('div');
+  div.textContent = i;
+  wrapper.appendChild(div);
+}
 
-// загрузка скрипта после загрузки всех ресурсов
-window.addEventListener('load', function (e) {
-  console.log('load');
-  console.log(e);
-});
-
-// // загрузка скрипта перед выгрузкой страницы
-// window.addEventListener('beforeunload', function (e) {
-//   e.preventDefault();
-//   e.returnValue = '';
-// });
+function search(event) {
+  const inputValue = event.target.value;
+  for (const div of [...wrapper.children]) {
+    if (div.textContent.includes(inputValue)) {
+      div.classList.add('yellow');
+      continue;
+    }
+    div.classList.remove('yellow');
+  }
+}

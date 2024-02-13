@@ -35,3 +35,8 @@
   border-radius: 10px;
   border: 1px solid #333;
 }
+
+.yellow {
+  background-color: #f4d03f;
+  color: #333;
+}
