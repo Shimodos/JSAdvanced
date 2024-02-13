@@ -1,18 +1,28 @@
 'use strict'; // strict mode
 
 const wrapper = document.querySelector('.wrapper');
+console.log(wrapper);
 
-for (let i = 0; i < 10; i++) {
-  const div = document.createElement('div');
-  div.innerHTML = `User ID: ${i}`;
-  div.setAttribute('data-id', i);
-  // div.addEventListener('click', () => {
-  //   console.log(`'Delete user ID: , ${i}`);
-  // });
-  wrapper.appendChild(div);
-}
+const inner = document.querySelector('.inner');
+const button = document.querySelector('.button');
+console.log(inner);
 
-wrapper.addEventListener('click', (e) => {
-  const i = e.target.getAttribute('data-id');
-  console.log(`Delete user ID: ${i}`);
-});
+// Перелючение вниз по дереву
+console.log(inner.childNodes);
+console.log([...inner.children][0].classList);
+
+// Перелючение вверх по дереву
+console.log(inner.parentElement);
+console.log(inner.parentNode);
+
+// Поиск ближайшего родителя
+console.log(button.closest('.wrapper'));
+
+// Перелючение влево и вправо по дереву
+console.log(button.previousElementSibling);
+console.log(button.previousSibling);
+console.log(button.nextElementSibling);
+console.log(button.nextSibling);
+
+// Перелючение вверх и вниз по дереву
+console.log(button.parentElement.children);
