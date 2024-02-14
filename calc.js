@@ -1,20 +1,13 @@
 'use strict'; // strict mode
 
-const APP = {};
+const a = 10;
 
-(function () {
-  const a = 10;
+function add(f, s) {
+  return f + s;
+}
 
-  function add(f, s) {
-    return f + s;
-  }
+function sub(f, s) {
+  return f - s;
+}
 
-  function sub(f, s) {
-    return f - s;
-  }
-
-  APP.calc = {
-    add,
-    sub,
-  };
-})(); // IIFE
+module.exports = { add, sub };

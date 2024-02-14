@@ -1,7 +1,6 @@
 'use strict'; // strict mode
 
-(function () {
-  const a = 10;
-  console.log(APP.calc.add(10, 5)); // 15
-  console.log(APP.calc.sub(10, 5)); // 15
-})(); // IIFE
+const { add, sub } = require('./calc.js');
+
+console.log(add(10, 5)); // 15
+console.log(sub(10, 5)); // 15
