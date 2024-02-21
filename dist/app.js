@@ -1106,6 +1106,71 @@
   onChange.target = proxy => proxy?.[TARGET] ?? proxy;
   onChange.unsubscribe = proxy => proxy?.[UNSUBSCRIBE] ?? proxy;
 
+  class DivComponent {
+    constructor() {
+      this.el = document.createElement('div');
+    }
+
+    render() {
+      this.el;
+    }
+  }
+
+  class Header extends DivComponent {
+    constructor(appState) {
+      super();
+      this.appState = appState;
+    }
+
+    render() {
+      this.el.classList.add('header');
+      this.el.innerHTML = `
+    <div>
+      <img src="/static/Logo.svg" alt ="Logo" />
+    </div>
+    <div class='menu'>
+      <a class='menu__item' href='#'>
+        <img src="/static/search.svg" alt ="Search Books" />
+        Search Books
+      </a>
+      <a class='menu__item' href='#favorites'>
+        <img src="/static/favorites.svg" alt ="Favorites" />
+        Favorites
+        <div class="menu__counter">
+          ${this.appState.favorites.length}
+        </div>
+      </a>
+    </div>
+    `;
+      return this.el;
+    }
+  }
+
+  class Search extends DivComponent {
+    constructor(state) {
+      super();
+      this.state = state;
+    }
+
+    render() {
+      this.el.classList.add('search');
+      this.el.innerHTML = `
+    <div class='search__wrapper'>
+      <input 
+        type="text" 
+        placeholder="Search for books..." 
+        class="search__input" 
+        value="${this.state.searchQuery ? this.state.searchQuery : ''}"
+      />
+      <img src='/static/search.svg' alt='icon search'>
+    </div>
+      <button aria-label='Search'><img src='/static/search-white.svg' atl='icon search'>
+      </button>
+    `;
+      return this.el;
+    }
+  }
+
   class MainView extends AbstractView {
     state = {
       list: [],
@@ -1130,10 +1195,18 @@
 
     render() {
       const main = document.createElement('div');
-      main.innerHTML = `Books list: ${this.appState.favorites.length}`;
+      // main.innerHTML = '';
+      main.append(new Search(this.state).render());
       this.app.innerHTML = ''; // Clear the app
       this.app.append(main);
+      this.renderHeader();
+
       this.appState.favorites.push('test');
+    }
+
+    renderHeader() {
+      const header = new Header(this.appState).render();
+      this.app.prepend(header);
     }
   }
 
