@@ -1182,6 +1182,27 @@
     }
   }
 
+  class CardList extends DivComponent {
+    constructor(appState, parentState) {
+      super();
+      this.appState = appState;
+      this.parentState = parentState;
+    }
+
+    render() {
+      if (this.parentState.loading) {
+        this.el.innerHTML = `<div class='card_list__loader'>Loading...</div>`;
+        return this.el;
+      }
+
+      this.el.classList.add('card_list');
+      this.el.innerHTML = `
+    <h1>Search results for ${this.parentState.list.length}</h1>
+    `;
+      return this.el;
+    }
+  }
+
   class MainView extends AbstractView {
     state = {
       list: [],
@@ -1212,6 +1233,11 @@
         this.state.list = data.docs;
         console.log(111);
       }
+
+      if (path === 'list' || path === 'loading') {
+        this.render();
+        console.log(222);
+      }
       // This is where you can add hooks to the app state
     }
 
@@ -1224,6 +1250,7 @@
       const main = document.createElement('div');
       // main.innerHTML = '';
       main.append(new Search(this.state).render());
+      main.append(new CardList(this.appState, this.state).render());
       this.app.innerHTML = ''; // Clear the app
       this.app.append(main);
       this.renderHeader();

@@ -2,6 +2,7 @@ import { AbstractView } from '../../common/view.js';
 import onChange from 'on-change';
 import { Header } from '../../components/header/header.js';
 import { Search } from '../../components/search/search.js';
+import { CardList } from '../../components/cardList/cardList.js';
 
 export class MainView extends AbstractView {
   state = {
@@ -33,6 +34,11 @@ export class MainView extends AbstractView {
       this.state.list = data.docs;
       console.log(111);
     }
+
+    if (path === 'list' || path === 'loading') {
+      this.render();
+      console.log(222);
+    }
     // This is where you can add hooks to the app state
   }
 
@@ -45,6 +51,7 @@ export class MainView extends AbstractView {
     const main = document.createElement('div');
     // main.innerHTML = '';
     main.append(new Search(this.state).render());
+    main.append(new CardList(this.appState, this.state).render());
     this.app.innerHTML = ''; // Clear the app
     this.app.append(main);
     this.renderHeader();
