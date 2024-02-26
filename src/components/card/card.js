@@ -8,11 +8,21 @@ export class Card extends DivComponent {
     this.cardState = cardState;
   }
 
+  #addToFavorites() {
+    this.appState.favorites.push(this.cardState);
+    // this.render();
+  }
+
+  #deleteFromFavorites() {
+    this.appState.favorites = this.appState.favorites.filter(
+      (item) => item.key !== this.cardState.key,
+    );
+    // this.render();
+  }
+
   render() {
     this.el.classList.add('card');
-    const existInFavorites = this.appState.favorites.some(
-      (item) => item.key === this.cardState.key,
-    );
+    const existInFavorites = this.appState.favorites.find((item) => item.key == this.cardState.key);
     this.el.innerHTML = `
     <div class="card__image">
       <img src="https://covers.openlibrary.org/b/olid/${
@@ -40,6 +50,14 @@ export class Card extends DivComponent {
       </div>
     </div>
     `;
+
+    if (existInFavorites) {
+      this.el
+        .querySelector('button')
+        .addEventListener('click', this.#deleteFromFavorites.bind(this));
+    } else {
+      this.el.querySelector('button').addEventListener('click', this.#addToFavorites.bind(this));
+    }
     return this.el;
   }
 }

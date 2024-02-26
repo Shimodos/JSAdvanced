@@ -60,7 +60,6 @@
   cursor: pointer;
 }
 
-
 .button__add:hover {
   /* background: var(--white); */
   color: var(--black);

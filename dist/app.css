@@ -141,7 +141,6 @@
   cursor: pointer;
 }
 
-
 .button__add:hover {
   /* background: var(--white); */
   color: var(--black);
@@ -163,4 +162,11 @@
   background-color: rgba(255, 255, 255, 0.5);
   font-size: 32px;
   z-index: 100;
+}
+
+.card_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 20px;
 }

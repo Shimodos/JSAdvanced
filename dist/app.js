@@ -1189,11 +1189,21 @@
       this.cardState = cardState;
     }
 
+    #addToFavorites() {
+      this.appState.favorites.push(this.cardState);
+      // this.render();
+    }
+
+    #deleteFromFavorites() {
+      this.appState.favorites = this.appState.favorites.filter(
+        (item) => item.key !== this.cardState.key,
+      );
+      // this.render();
+    }
+
     render() {
       this.el.classList.add('card');
-      const existInFavorites = this.appState.favorites.some(
-        (item) => item.key === this.cardState.key,
-      );
+      const existInFavorites = this.appState.favorites.find((item) => item.key == this.cardState.key);
       this.el.innerHTML = `
     <div class="card__image">
       <img src="https://covers.openlibrary.org/b/olid/${
@@ -1221,6 +1231,14 @@
       </div>
     </div>
     `;
+
+      if (existInFavorites) {
+        this.el
+          .querySelector('button')
+          .addEventListener('click', this.#deleteFromFavorites.bind(this));
+      } else {
+        this.el.querySelector('button').addEventListener('click', this.#addToFavorites.bind(this));
+      }
       return this.el;
     }
   }
@@ -1238,12 +1256,11 @@
         return this.el;
       }
 
-      this.el.classList.add('card_list');
-      this.el.innerHTML = `
-    <h1>Search results for ${this.parentState.numFound}</h1>
-    `;
+      const cardGrid = document.createElement('div');
+      cardGrid.classList.add('card_grid');
+      this.el.append(cardGrid);
       for (const card of this.parentState.list) {
-        this.el.append(new Card(this.appState, card).render());
+        cardGrid.append(new Card(this.appState, card).render());
       }
       return this.el;
     }
@@ -1267,8 +1284,15 @@
       this.setTitle('Search books');
     }
 
+    destroy() {
+      onChange.unsubscribe(this.appState);
+      onChange.unsubscribe(this.state);
+    }
+
     appStateHook(path) {
-      console.log(path);
+      if (path === 'favorites') {
+        this.render();
+      }
       // This is where you can add hooks to the app state
     }
 
@@ -1278,14 +1302,12 @@
         const data = await this.loadList(this.state.searchQuery, this.state.offset);
         this.state.loading = false;
         this.state.list = data.docs;
-        console.log(data);
+
         this.state.numFound = data.numFound;
-        console.log(111);
       }
 
       if (path === 'list' || path === 'loading') {
         this.render();
-        console.log(222);
       }
       // This is where you can add hooks to the app state
     }
@@ -1297,14 +1319,54 @@
 
     render() {
       const main = document.createElement('div');
-      // main.innerHTML = '';
+      main.innerHTML = `
+    <h1>Search results for ${this.state.numFound}</h1>
+    `;
       main.append(new Search(this.state).render());
       main.append(new CardList(this.appState, this.state).render());
       this.app.innerHTML = ''; // Clear the app
       this.app.append(main);
       this.renderHeader();
 
-      this.appState.favorites.push('test');
+      // this.appState.favorites.push('test');
+    }
+
+    renderHeader() {
+      const header = new Header(this.appState).render();
+      this.app.prepend(header);
+    }
+  }
+
+  class FavoritesView extends AbstractView {
+    constructor(appState) {
+      super();
+      this.appState = appState;
+      this.appState = onChange(this.appState, this.appStateHook.bind(this));
+
+      this.setTitle('My favorite books');
+    }
+
+    destroy() {
+      onChange.unsubscribe(this.appState);
+    }
+
+    appStateHook(path) {
+      if (path === 'favorites') {
+        this.render();
+      }
+      // This is where you can add hooks to the app state
+    }
+
+    render() {
+      const main = document.createElement('div');
+
+      main.innerHTML = `
+    <h1>Search results for</h1>
+    `;
+      main.append(new CardList(this.appState, { list: this.appState.favorites }).render());
+      this.app.innerHTML = ''; // Clear the app
+      this.app.append(main);
+      this.renderHeader();
     }
 
     renderHeader() {
@@ -1314,7 +1376,11 @@
   }
 
   class App {
-    routes = [{ path: '', view: MainView }];
+    routes = [
+      { path: '', view: MainView },
+      { path: '#favorites', view: FavoritesView },
+    ];
+
     appState = {
       favorites: [],
     }; // This is where you can store the state of your app
